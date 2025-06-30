@@ -1,6 +1,6 @@
 export default function loginPage() {
     return (
-        <div>
+        <div className="w-full h-screen bg-red-700">
             <h1>login page</h1>
             <body>Wellcome</body>
         </div>

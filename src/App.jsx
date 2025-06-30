@@ -1,32 +1,36 @@
-import { useState } from 'react'
+
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import ProductCard from './components/productCard'
-import { BrowserRouter, Route } from 'react-router-dom'
+import adminPage from "/pages/adminPage";
+import testPage from '../pages/testPage';
+import loginPage from '../pages/loginPage';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 //<></> can return muliple div                                                                                                                                                                                                                                                                                                                                                                                                                    
 function App() {
-  const [count, setCount] = useState(0)
-
+  
   return (
     <BrowserRouter>
-    <>
+    
    
-      <div className = "w-full h-screen bg-blue-200 " >  
-        <div className='bg-red-400'> 
+      <div className="w-full h-screen flex justify-center items-center">
+					<Toaster position="top-right"/>
+        
           <Routes path = "/">
-          <Route path="/" element={<homePage/>} />
-          <Route path="/register" element={<registerPage/>} />
-          <Route path="/login" element={<loginPage/>} />
-          <Route path="/admin" element={<adminPage/>} />
+            <Route path="/" element={<homePage/>} />
+            <Route path="/register" element={<registerPage/>} />
+            <Route path="/login" element={<loginPage/>} />
+            <Route path="/admin/*" element={<adminPage/>} />
+          <Route path="/test" element={<testPage/>} />
           </Routes>
 
-        </div>
+        
       </div>
        
-    </>
+    
    </BrowserRouter>
-  )
+  );
 }
 
 export default App
