@@ -1,36 +1,23 @@
-
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import ProductCard from './components/productCard'
-import adminPage from "/pages/adminPage";
-import testPage from '../pages/testPage';
-import loginPage from '../pages/loginPage';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-//<></> can return muliple div                                                                                                                                                                                                                                                                                                                                                                                                                    
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import HomePage from "../pages/homePage";
+import TestPage from "../pages/testPage";
+import AdminPage from "../pages/adminPage";
+import LoginPage from "../pages/loginPage";
 function App() {
-  
   return (
     <BrowserRouter>
-    
-   
-      <div className="w-full h-screen flex justify-center items-center">
-					<Toaster position="top-right"/>
+    <div className="w-full h-screen flex justify-center items-center">
+      <Routes path="/">
+        <Route path="/" element={<HomePage/>}/>
+        <Route path ="/test" element={<TestPage/>}/>
+        <Route path ="/admin" element={<AdminPage/>}/>
+        <Route path ="/login" element={<LoginPage/>}/>
         
-          <Routes path = "/">
-            <Route path="/" element={<homePage/>} />
-            <Route path="/register" element={<registerPage/>} />
-            <Route path="/login" element={<loginPage/>} />
-            <Route path="/admin/*" element={<adminPage/>} />
-          <Route path="/test" element={<testPage/>} />
-          </Routes>
-
-        
-      </div>
-       
-    
-   </BrowserRouter>
+      </Routes>
+    </div>
+    </BrowserRouter>
   );
 }
 
-export default App
+export default App;
