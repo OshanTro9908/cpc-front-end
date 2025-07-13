@@ -7,28 +7,40 @@ export default function LoginPage() {
     //hook
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate();//for page loading smothly 
+    const navigate = useNavigate()//for page loading smothly 
 
 //create loging function
     function login(){
-      console.log(email, password); 
-      axios.post(import.meta.env.VITE_backend_url + "api/users/login", {
-         email : email,
-         password : password //send the data into backend
-      }).then((response)=>{
-        console.log(response.data);
-        //save token in web browser storage
-        localStorage.setItem("token", response.data.token);
-        toast.success("login successfull");//for success massage
-        if(response.data.role === "admin"){
-          navigate("/admin");//go to admin panel
-        }else if(response.data.role === "user"){
-          navigate("/");//go to user panel
-        }
-      }).catch((error)=>{
-        console.log(error);
-        toast.error("Invails email or password")
-      })
+        console.log(email, password)
+        //call backend
+        axios.post(import.meta.env.VITE_BACKEND_URL+"/users/api/login",{
+            email: email,
+            password: password
+        }).then(
+            (response)=>{
+                console.log(response.data)
+                localStorage.setItem("token",response.data.token)//create key valve for token (token is name of key, response.data.token is value of key )
+
+                // const token = localStorage.getItem("token")
+                toast.success("login successful")//for success massage
+                if(response.data.role == "admin"){
+
+                    //window.location.href = "/admin"
+                    navigate("/admin")
+
+                }else if(response.data.role == "user"){
+
+                    //window.location.href = "/"
+                    navigate("/")
+
+                }
+            }
+        ).catch(
+            (error)=>{
+                console.log(error)
+                toast.error("Invalid email or password")
+            }
+        )
     }
 
     return (
@@ -51,7 +63,7 @@ export default function LoginPage() {
                 <span className="text-lg">Password </span>
             <input onChange={(e)=>{
                 setPassword(e.target.value);
-                console.log("passwordchanged")
+                console.log("password changed")
             }}            
             className="w-[350px] h-[60px] border border-amber-200 rounded-xl" type = "password" />
             </div>
