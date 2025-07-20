@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import uploadfile from "../../src/utils/mediaUpload";
 
 export default function AddProductAdmin() {
 
@@ -10,12 +11,27 @@ export default function AddProductAdmin() {
     const[alternativeNames, setAlternativeNames] = useState("");
     const[labelledPrice, setLabelledPrice] = useState("");
     const[price, setPrice] = useState("");
-    const[images, setImages] = useState("");
+    const[images, setImages] = useState([]);
     const[descripition, setDescripition] = useState("");
     const[category, setCategory] = useState("");
     const[stock, setStock] = useState("");
     const[isActive, setIsActive] = useState("");
 
+
+    async function handleSumbit(){
+      //set array in multipal images
+      const promisesArray = []
+      //read images
+      for (let i = 0; i < images.length; i++) {
+        console.log(images[i])
+        const promise = uploadfile(images[i])
+        promisesArray[i] = promise //update image in promise array
+      }
+       
+      //run all promises
+      const responses = await Promise.all(promisesArray)
+      console.log(responses)
+    }
     //function for save button
     function productSave(){ 
        const altNamesInArray = alternativeNames.split(',');//split the string into array
@@ -89,7 +105,7 @@ export default function AddProductAdmin() {
 
              <div className="w-[500px] flex flex-col gap-[5px]">
                 <label className="text-sm font-semibold">Images</label>
-                <input type="text" value={images} onChange={(e)=>{setImages(e.target.value)}} className="w-full h-[40px] border-[1px] rounded-lg "/>
+                <input multipletype="file" onChange={(e)=>{setImages(e.target.files)}} className="w-full h-[40px] border-[1px] rounded-lg "/>
              </div>
 
              <div className="w-[500px] flex flex-col gap-[5px]">
